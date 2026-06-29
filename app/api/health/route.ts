@@ -6,7 +6,7 @@ import { sql } from '@/lib/db';
 
 export async function GET(request: NextRequest) {
   try {
-    const ip = request.ip || request.headers.get('x-forwarded-for') || '127.0.0.1';
+    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
     const limit = 10;
     const windowSeconds = 60;
 
