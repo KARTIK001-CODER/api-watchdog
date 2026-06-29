@@ -1,0 +1,18 @@
+name: API Watchdog Cron
+
+on:
+  schedule:
+    # Runs every 10 minutes
+    - cron: '*/10 * * * *'
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Watchdog API
+        run: |
+          curl -f -X GET -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" ${{ secrets.API_URL }}/api/ping
+        env:
+          API_URL: ${{ secrets.API_URL }}
